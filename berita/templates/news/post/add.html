@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+{% load berita_tags %}
+
+{% block title %}<title>Tambah berita baru</title>{% endblock %}
+
+{% block content %}
+<h1>Add post</h1>
+<form action="" method="post">
+    {{ posting.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="Tambah" />
+</form>
+{% endblock %}

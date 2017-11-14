@@ -1,0 +1,42 @@
+{% extends "base_generic.html" %}
+{% load berita_tags %}
+
+{% block title %}<title>{{ post.title }}</title>{% endblock %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p class="date">
+    Published {{ post.publish }} by {{ post.author }}
+</p>
+{{ post.body|markdown }}
+<h2>Similar posts</h2>
+{% for post in similar_posts %}
+<p><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
+{% empty %}
+<p>There are no similar posts yet.</p>
+{% endfor %}
+{% with comments.count as total_comments %}
+    <h2>{{ total_comments }} komentar</h2>
+{% endwith %}
+{% for comment in comments %}
+<div class="comment">
+    <p class="info">
+        Komentar {{ forloop.counter }} by {{ comment.name }}
+        {{ comment.created }}
+    </p>
+    {{ comment.body|markdown }}
+</div>
+{% empty %}
+    <p>Belum ada komentar.</p>
+{% endfor %}
+{% if new_comment %}
+<h2>Komentarmu telah ditambahkan</h2>
+{% else %}
+<h2>Tambahkan sebuah komentar</h2>
+<form action="." method="post">
+    {{ comment_form.as_p }}
+    {% csrf_token %}
+    <p><input type="submit" value="Tambah komentar"></p>
+</form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <p>Detail siswa {{ siswa.user.username }}</p>
+    {% for n in nilai %}
+        <p>{{ n.mapel }} - {{ n.angka }}</p>
+    {% endfor %}
+    <p>{{ siswa.bio }}</p>
+{% endblock %}

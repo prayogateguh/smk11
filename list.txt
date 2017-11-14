@@ -1,0 +1,38 @@
+STAFF_______________________________________________________________
+- detail staff
+	- biodata
+	- absensi
+- add artikel/berita
+
+GURU MAPEL_______________________________________________________________
+- detail guru
+	- biodata
+	- absensi
+- input nilai
+- beri catatan ke murid
+
+SEMUA GURU / STAFF (view only)_______________________________________________________________
+- daftar jurusan (diklik masuk ke daftar kelas)
+- daftar kelas (diklik masuk ke daftar siswa)
+- daftar siswa (diklik masuk ke detail siswa)
+- detail siswa 
+	- biodata, 
+	- absensi, 
+	- daftar mapel 
+		- nilai PTS, 
+		- nilai PAS, 
+		- nilai Ulangan (banyak), 
+		- Lain-lain
+	- daftar kegiatan ekstrakulikuler yang diambil
+	- daftar catatan
+	
+SISWA (view only)_______________________________________________________________
+- detail siswa 
+	- biodata, 
+	- absensi, 
+	- daftar mapel 
+		- nilai PTS, 
+		- nilai PAS, 
+		- nilai Ulangan (banyak), 
+		- Lain-lain
+	- daftar kegiatan ekstrakulikuler yang diambil

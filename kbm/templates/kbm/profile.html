@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<p>Profiles</p>
+<form action="" method="post">
+    {{ user_form.as_p }}
+    {{ siswa_form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="Update" />
+</form>
+
+{% endblock %}

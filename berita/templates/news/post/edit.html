@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+{% load berita_tags %}
+
+{% block title %}<title>Edit {{ title|title }}</title>{% endblock %}
+
+{% block content %}
+<h1>Edit <em>{{ title|title }}</em></h1>
+<form action="" method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="Tambah" />
+</form>
+{% endblock %}

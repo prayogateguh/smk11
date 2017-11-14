@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>List siswa</h1>
+
+{% for siswa in list_siswa %}
+<li>{{ siswa.user }}</li>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    {% for mp in mapel %}
+        <p><a href="{{ mp.get_absolute_url }}">{{ mp.name }}</a></p>
+    {% endfor %}
+{% endblock %}

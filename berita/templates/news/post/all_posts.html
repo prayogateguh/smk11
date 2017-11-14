@@ -1,0 +1,27 @@
+{% extends "base_generic.html" %}
+{% load berita_tags %}
+
+{% block title %}<title>All Posts</title>{% endblock %}
+
+{% block content %}
+<h1>All Posts</h1>
+<p>Published</p>
+{% for post in posts %}
+    <p>{{ forloop.counter }}
+    <span><a href="{{ post.get_absolute_url }}" target="_blank">{{ post.title }}</a></span>
+    - {{ post.created }} 
+    (<a href="{% url 'berita:edit_post' pk=post.id %}">edit</a> - 
+    <a href="{% url 'berita:del_post' pk=post.id %}">delete</a>)
+    </p>
+{% endfor %}
+<p>Drafted</p>
+{% for draft in drafts %}
+<p>{{ forloop.counter }}
+<span>(<span class="draft">draft</span>)<a href="{{ draft.get_absolute_url }}" target="_blank">{{ draft.title }}</a></span>
+-  
+(<a href="{% url 'berita:edit_post' pk=draft.id %}">edit</a> - 
+<a href="{% url 'berita:del_post' pk=draft.id %}">delete</a>)
+</p>
+{% endfor %}
+
+{% endblock %}

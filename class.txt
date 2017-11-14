@@ -1,0 +1,33 @@
+akun (guru, siswa, admin, staff)
+kelas (guru, kelas, siswa, jadwal)
+mapel (mapel, guru, nilai)
+ekstra (guru/staff, siswa, kegiatan, jadwal)
+berita (guru/staff, berita, kategori)
+
+kbm
+-----
+siswa (id siswa, nama)
+kelas (id kelas, nama kelas, id guru, id siswa)
+mapel (id mapel, nama mapel, jadwal/hari, id guru, id kelas)
+nilai (id mapel, nilai, id siswa)
+ekstra (id ekstra, nama ekstra, id guru, id siswa)
+absensi (id absen, hari, tanggal, id guru, id siswa, id mapel, ket)
+
+berita
+-----
+kategori (id kategori, nama kategori)
+berita (id berita, id kategori, berita, tanggal, id staff)
+
+akun
+-----
+admin (nama)
+guru (nama, id mapel, id kelas)
+staff (nama, id berita)
+siswa (nama, id kelas)
+
+permission
+-----
+admin (all access)
+guru (input nilai, edit bio)
+staf (input berita, input absensi, edit bio)
+siswa (edit bio)
