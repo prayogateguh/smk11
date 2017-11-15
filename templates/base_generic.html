@@ -24,6 +24,8 @@
                         <li><a href="{% url 'berita:index' %}">Home</a></li>
                         {% if user.is_authenticated %}
                         <li><a href="{% url 'akun:dashboard' %}">Dashboard</a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li> 
                         {% endif %}
                         <li>Latest posts</li>
                         {% show_latest_posts 3 %}
