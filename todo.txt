@@ -1,0 +1,11 @@
+1. profil
+    - guru
+    - murid
+    - karyawan
+
+2. web desian
+    - wysiwyg post editor
+
+3. deploy
+
+

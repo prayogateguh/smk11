@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'smk.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'smk11',
-        'USER': 'postgres',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'smksocial',
+        'USER': 'prayoga',
         'PASSWORD': 'theguh',
-        'HOST': '',
+        'HOST': 'localhost',
         'PORT': '',
     }
 }
@@ -141,3 +141,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # site settings
 SITE_ID = 1
+
+# bootstrap message
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}

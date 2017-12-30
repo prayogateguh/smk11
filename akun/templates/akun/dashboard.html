@@ -8,9 +8,8 @@
         <li><a href="{% url 'berita:all_posts' %}">All post</a></li>
     {% endif %}
 
-    <li><a href="{% url 'kbm:list_kelas' %}">Semua kelas</a></li>
     <hr>
-    <li><a href="{% url 'kbm:edit_profile' %}">Edit profile</a></li>
+    <li><a href="{% url 'akun:profile' %}">Edit profile</a></li>
     {% if user.is_authenticated %}
     <li>User: {{ user.get_username }}</li>
     <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>   
