@@ -1,7 +1,8 @@
-.sidebar {
-    border-right: 4px solid #eee;
-}
-
 .draft {
     color: #ff0000;
+}
+
+.tengah, iframe {
+    display: block;
+    margin: 0 auto;
 }

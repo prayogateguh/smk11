@@ -1,13 +1,18 @@
-{% extends "base_generic.html" %}
+{% extends "html5up/base.html" %}
 {% load berita_tags %}
 
-{% block title %}<title>Edit {{ title|title }}</title>{% endblock %}
+{% block title %}Edit {{ title|title }}{% endblock %}
+
+{% block sosmed %}{% endblock sosmed %}
 
 {% block content %}
-<h1>Edit <em>{{ title|title }}</em></h1>
-<form action="" method="post">
+<h2>Edit <em>{{ title|title }}</em></h2>
+<form action="" method="post" enctype="multipart/form-data">
     {{ form.as_p }}
     {% csrf_token %}
-    <input type="submit" value="Tambah" />
+    <input type="submit" value="Update" />
 </form>
-{% endblock %}
+{% endblock content %}
+
+{% block post-sidebar %}{% endblock post-sidebar %}
+{% block address %}{% endblock address %}

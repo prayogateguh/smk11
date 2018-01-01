@@ -1,4 +1,4 @@
-{% extends "base_generic.html" %} 
+{% extends "html5up/base.html" %}
 
 {% block content %}
 <p>Hello {{ user.get_full_name }}, this is your profile</p>
@@ -7,6 +7,11 @@
     {% csrf_token %}
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
+
+    {% if sts == "Siswa" %}
+    Kelas: {{ request.user.siswa.kelas }} <br>
+    Mapel:  <br>
+    {% endif %}
     <button type="submit">Save changes</button>
 </form>
 
@@ -19,4 +24,7 @@
 </div>
 {% endfor %}
 
-{% endblock %}
+{% endblock content %}
+
+{% block post-sidebar %}{% endblock post-sidebar %}
+{% block address %}{% endblock address %}

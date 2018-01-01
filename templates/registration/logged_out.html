@@ -1,7 +1,10 @@
-{% extends "base_generic.html" %}
+{% extends "html5up/base.html" %}
 
 {% block content %}
 <p>Logged out</p>
 
 <a href="{% url 'login' %}">Click here to login again.</a>
-{% endblock %}
+{% endblock content %}
+
+{% block post-sidebar %}{% endblock post-sidebar %}
+{% block address %}{% endblock address %}

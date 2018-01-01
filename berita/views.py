@@ -10,7 +10,7 @@ from .models import Comment, Post
 
 
 def index(request):
-    return render(request, 'news/index.html', {})
+    return render(request, 'html5up/base.html', {})
 
 def post_detail(request, post):
     post = get_object_or_404(Post, slug=post, status='published',)
@@ -52,7 +52,7 @@ def post_list(request, tag_slug=None):
 @permission_required('berita.can_post_news')
 def add_post(request):
     if request.method == 'POST':
-        posting = PostForm(data=request.POST)
+        posting = PostForm(request.POST, request.FILES or None)
         if posting.is_valid():
             obj = posting.save(commit=False)
             obj.author = request.user
@@ -86,7 +86,7 @@ def edit_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     title = post.title
 
-    form = PostForm(request.POST or None, instance=post)
+    form = PostForm(request.POST or None, request.FILES or None, instance=post)
 
     if request.POST and form.is_valid():
         form.save()

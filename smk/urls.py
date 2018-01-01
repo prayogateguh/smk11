@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import TemplateView
+from django.contrib.auth.views import login
 
 from berita.sitemaps import PostSitemap
 
@@ -37,11 +38,16 @@ urlpatterns = [
     # static pages
     url(r'^about/$', TemplateView.as_view(template_name='static/about_us.html'), name='about'),
     url(r'^contact/$', TemplateView.as_view(template_name='static/contact_us.html'), name='contact'),
+    # template tests
+    url(r'^test-home/$', TemplateView.as_view(template_name='html5up/base.html')),
+    url(r'^test-single/$', TemplateView.as_view(template_name='html5up/single.html')),
+    url(r'^test-login/$', TemplateView.as_view(template_name='html5up/login.html')),
     # akun apps
     url(r'', include('akun.urls', namespace='akun', app_name='akun')),
     # kbm apps
     url(r'', include('kbm.urls', namespace='kbm', app_name='kbm')),
     # berita apps
     url(r'', include('berita.urls', namespace='berita', app_name='berita')),
-    
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  
+# ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

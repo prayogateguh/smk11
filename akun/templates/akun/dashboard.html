@@ -1,7 +1,7 @@
-{% extends "base_generic.html" %}
+{% extends "html5up/base.html" %}
 
 {% block content %}
-<p>Hello from dashboard</p>
+<p>Hello {{ user.get_full_name|title }}</p>
 <ul>
     {% if perms.berita.can_post_news %}
         <li><a href="{% url 'berita:add_post' %}">Add post</a></li>
@@ -10,9 +10,10 @@
 
     <hr>
     <li><a href="{% url 'akun:profile' %}">Edit profile</a></li>
-    {% if user.is_authenticated %}
-    <li>User: {{ user.get_username }}</li>
+    <hr>
     <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>   
-    {% endif %}
 </ul>
-{% endblock %}
+{% endblock content %}
+
+{% block post-sidebar %}{% endblock post-sidebar %}
+{% block address %}{% endblock address %}

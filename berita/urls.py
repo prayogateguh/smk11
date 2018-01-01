@@ -5,7 +5,7 @@ from berita.feeds import LatestPostsFeed
 
 urlpatterns = [
     # post list
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.index, name='homepage'),
     # post list
     url(r'^berita/$', views.post_list, name='post_list'),
     # latest posts feeds

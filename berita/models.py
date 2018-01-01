@@ -22,6 +22,8 @@ class Post(models.Model):
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique_for_date='publish', unique=True)
     author = models.ForeignKey(User, related_name='news_posts')
+    post_pic = models.ImageField(upload_to = 'img/', null=True, blank=True)
+    embed = models.CharField(max_length=255, null=True, blank=True)
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)

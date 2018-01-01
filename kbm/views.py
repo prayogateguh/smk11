@@ -1,35 +1,37 @@
-# from django.contrib.auth.decorators import login_required
-# from django.shortcuts import redirect, render, get_object_or_404
-# from django.views import generic
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, render, get_object_or_404
+from django.views import generic
 
-# from .forms import SiswaForm, UserForm
-# from .models import Kelas, Mapel, Siswa
+from .forms import SiswaForm, UserForm
+from .models import Kelas, Mapel
 
-# @login_required
-# def semua_kelas(request):
-#     kelas = Kelas.objects.all()
+from akun.models import Siswa
 
-#     return render(request, 'kbm/kelas.html', {'kelas': kelas,})
+@login_required
+def semua_kelas(request):
+    kelas = Kelas.objects.all()
 
-# @login_required
-# def kelas_detail(request, slug):
-#     kelas = get_object_or_404(Kelas, slug=slug,)
-#     mapel = kelas.mapel_kelas.all()
-#     siswa = kelas.kelas_siswa.all()
+    return render(request, 'kbm/kelas.html', {'kelas': kelas,})
 
-#     return render(request, 'kbm/kelas_detail.html', {'kelas':kelas, 'siswa':siswa, 'mapel':mapel,})
+@login_required
+def kelas_detail(request, slug):
+    kelas = get_object_or_404(Kelas, slug=slug,)
+    mapel = kelas.mapel_kelas.all()
+    siswa = kelas.kelas_siswa.all()
 
-# @login_required
-# def semua_mapel(request):
-#     mapel = Mapel.objects.all()
+    return render(request, 'kbm/kelas_detail.html', {'kelas':kelas, 'siswa':siswa, 'mapel':mapel,})
 
-#     return render(request, 'kbm/mapel.html', {'mapel': mapel,})
+@login_required
+def semua_mapel(request):
+    mapel = Mapel.objects.all()
 
-# @login_required
-# def mapel_detail(request, pk):
-#     mapel = get_object_or_404(Mapel, slug=pk,)
+    return render(request, 'kbm/mapel.html', {'mapel': mapel,})
 
-#     return render(request, 'kbm/mapel_detail.html', {'mapel':mapel,})
+@login_required
+def mapel_detail(request, pk):
+    mapel = get_object_or_404(Mapel, slug=pk,)
+
+    return render(request, 'kbm/mapel_detail.html', {'mapel':mapel,})
 
 # @login_required
 # def semua_siswa(request):

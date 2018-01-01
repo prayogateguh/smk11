@@ -1,10 +1,10 @@
-{% extends "base_generic.html" %}
+{% extends "html5up/base.html" %}
 {% load berita_tags %}
 
-{% block title %}<title>My News</title>{% endblock %}
+{% block title %}My News{% endblock %}
 
 {% block content %}
-<h1>My Blog</h1>
+<h2>Latest news</h2>
 {% if tag %}
     <h2>Posts tagged with "{{ tag.name }}"</h2>
 {% endif %}
@@ -23,4 +23,7 @@
     </p>
     {{ post.body|markdown|truncatewords_html:30 }}
 {% endfor %}
-{% endblock %}
+{% endblock content %}
+
+{% block post-sidebar %}{% endblock post-sidebar %}
+{% block address %}{% endblock address %}

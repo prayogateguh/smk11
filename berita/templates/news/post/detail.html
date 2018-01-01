@@ -1,14 +1,23 @@
-{% extends "base_generic.html" %}
+{% extends "html5up/base.html" %}
 {% load berita_tags %}
 
-{% block title %}<title>{{ post.title }}</title>{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
 <h1>{{ post.title }}</h1>
 <p class="date">
-    Published {{ post.publish }} by {{ post.author }}
+    Diterbitkan pada {{ post.publish }}, oleh {{ post.author|title }}
 </p>
+{% if post.post_pic %}
+    <img class="tengah" src="{{ post.post_pic.url }}" alt="{{ post.title }}" width="600" height="400" />
+{% endif %}
+
 {{ post.body|markdown }}
+
+{% if post.embed %}
+    {{ post.embed|safe }}
+{% endif %}
+
 <h2>Similar posts</h2>
 {% for post in similar_posts %}
 <p><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
@@ -39,4 +48,4 @@
     <p><input type="submit" value="Tambah komentar"></p>
 </form>
 {% endif %}
-{% endblock %}
+{% endblock content %}

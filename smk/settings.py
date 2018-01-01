@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'smk.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'smksocial',
+        'NAME': 'smk',
         'USER': 'prayoga',
         'PASSWORD': 'theguh',
-        'HOST': 'localhost',
+        'HOST': '',
         'PORT': '',
     }
 }
@@ -133,6 +133,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # change default url
 LOGIN_REDIRECT_URL = '/'
 
@@ -141,14 +146,3 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # site settings
 SITE_ID = 1
-
-# bootstrap message
-from django.contrib.messages import constants as messages
-
-MESSAGE_TAGS = {
-    messages.DEBUG: 'alert-info',
-    messages.INFO: 'alert-info',
-    messages.SUCCESS: 'alert-success',
-    messages.WARNING: 'alert-warning',
-    messages.ERROR: 'alert-danger',
-}
