@@ -1,5 +1,9 @@
+{% load berita_tags %}
 <ul>
-    {% for post in latest_posts %}
-    <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+    {% for post in posts|slice:":2" %}
+    <article>
+        <a href="{{ post.get_absolute_url }}" class="image"><img src="{{ post.post_pic.url }}" alt="" /></a>
+        <p>{{ post.title }}</p>
+    </article>
     {% endfor %}
 </ul>

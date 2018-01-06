@@ -1,29 +1,70 @@
 {% extends "html5up/base.html" %}
+{% load static %}
 {% load berita_tags %}
 
 {% block title %}My News{% endblock %}
 
-{% block content %}
-<h2>Latest news</h2>
-{% if tag %}
-    <h2>Posts tagged with "{{ tag.name }}"</h2>
-{% endif %}
-{% for post in posts %}
-    <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
-    <p class="tags">Tags: 
-        {% for tag in post.tags.all %}
-            <a href="{% url 'berita:post_list_by_tag' tag.slug %}">
-                {{ tag.name }}
-            </a>
-            {% if not forloop.last %}, {% endif %}
-        {% endfor %}
-    </p>
-    <p class="date">
-        Published {{ post.publish }} by {{ post.author }}
-    </p>
-    {{ post.body|markdown|truncatewords_html:30 }}
-{% endfor %}
-{% endblock content %}
+{% block featured %}
+<section id="banner">
+    <div class="content">
+        <header>
+            <h1>{{ featured_post.title }}<br /></h1>
+            <p>{{ featured_post.tagline }}</p>
+        </header>
+        <p>{{ featured_post.body|markdown|truncatewords_html:40 }}</p>
+        <ul class="actions">
+            <li><a href="{{ featured_post.get_absolute_url }}" class="button big">Selengkapnya</a></li>
+        </ul>
+    </div>
 
-{% block post-sidebar %}{% endblock post-sidebar %}
-{% block address %}{% endblock address %}
+    <span class="image object">
+        {% if featured_post.post_pic %}
+            <img src="{{ featured_post.post_pic.url }}" alt="" />
+        {% else %}
+            <img src="{% static 'media/default-img.gif' %}" alt="" />
+        {% endif %}
+    </span>
+</section>
+{% endblock featured %}
+
+{% block post_list %}
+{% for post in posts %}
+<article>
+    {% if post.post_pic %}
+        <a href="{{ post.get_absolute_url }}" class="image">
+            <img class="tengah" src="{{ post.post_pic.url }}" alt="{{ post.title }}" />
+        </a>
+    {% endif %}
+    <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+    <p>{{ post.body|markdown|truncatechars_html:40 }}</p>
+    <ul class="actions">
+        <li><a href="{{ post.get_absolute_url }}" class="button">More</a></li>
+    </ul>
+</article>
+{% endfor %}
+{% endblock post_list %}
+
+{% block pagination %}
+{% if posts.has_other_pages %}
+<ul class="pagination">
+    {% if posts.has_previous %}
+        <li><a href="?page={{ posts.previous_page_number }}" class="button">Berita Selanjutnya</a></li>
+    {% else %}
+        <li><span class="button disabled">Berita Selanjutnya</span></li>
+    {% endif %}
+
+    <span class="current">
+        Halaman {{ posts.number }} dari {{ posts.paginator.num_pages }}.
+    </span>
+
+    {% if posts.has_next %}
+        <li><a href="?page={{ posts.next_page_number }}" class="button">Berita Sebelumnya</a></li>
+    {% else %}
+        <li><span class="button disabled">Berita Sebelumnya</span></li>
+    {% endif %}
+</ul>
+{% endif %}
+{% endblock pagination %}
+
+{% block post-sidebar %}
+{% endblock post-sidebar %}

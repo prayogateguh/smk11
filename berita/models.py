@@ -29,6 +29,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    featured = models.BooleanField(default=False)
     objects = models.Manager() # the default manager
     published = PublishedManager() # the custom manager
     drafted = DraftedManager()

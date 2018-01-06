@@ -5,9 +5,7 @@ from berita.feeds import LatestPostsFeed
 
 urlpatterns = [
     # post list
-    url(r'^$', views.index, name='homepage'),
-    # post list
-    url(r'^berita/$', views.post_list, name='post_list'),
+    url(r'^$', views.post_list, name='homepage'),
     # latest posts feeds
     url(r'^feeds/$', LatestPostsFeed(), name='post_feed'),
     # post a news from staff dashboard

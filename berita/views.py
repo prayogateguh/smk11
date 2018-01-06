@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import permission_required
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.http import HttpResponseForbidden, HttpResponseRedirect
@@ -13,6 +14,7 @@ def index(request):
     return render(request, 'html5up/base.html', {})
 
 def post_detail(request, post):
+    posts = Post.published.all()
     post = get_object_or_404(Post, slug=post, status='published',)
 
     # list of active comments for this post
@@ -36,18 +38,40 @@ def post_detail(request, post):
     similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
     similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4]
 
-    return render(request, 'news/post/detail.html', {'post': post, 'comments': comments, 'comment_form': comment_form, 'new_comment': new_comment, 'similar_posts': similar_posts,})
+    return render(request, 'news/post/detail.html', {
+        'posts': posts,
+        'post': post, 
+        'comments': comments, 
+        'comment_form': comment_form, 
+        'new_comment': new_comment, 
+        'similar_posts': similar_posts,
+    })
 
 def post_list(request, tag_slug=None):
-    posts = Post.published.all()
-    
+    posts_list = Post.published.all()
+    featured_post = Post.published.filter(featured=True).latest('publish')
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(posts_list, 6) # hanya menampilkan 6 post per halaman
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
     tag = None
 
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         posts = posts.filter(tags__in=[tag])
 
-    return render(request, 'news/post/list.html', {'posts': posts, 'tag': tag})
+    return render(request, 'news/post/list.html', {
+        'posts': posts, 
+        'featured_post': featured_post, 
+        'tag': tag,
+    })
 
 @permission_required('berita.can_post_news')
 def add_post(request):
