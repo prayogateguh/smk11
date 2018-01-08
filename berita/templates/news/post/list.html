@@ -8,7 +8,7 @@
 <section id="banner">
     <div class="content">
         <header>
-            <h1>{{ featured_post.title }}<br /></h1>
+            <h1>{{ featured_post.title }}</h1>
             <p>{{ featured_post.tagline }}</p>
         </header>
         <p>{{ featured_post.body|markdown|truncatewords_html:40 }}</p>
@@ -19,9 +19,9 @@
 
     <span class="image object">
         {% if featured_post.post_pic %}
-            <img src="{{ featured_post.post_pic.url }}" alt="" />
+            <a href="{{ featured_post.get_absolute_url }}"><img src="{{ featured_post.post_pic.url }}" alt="{{ featured_post.title }}" /></a> 
         {% else %}
-            <img src="{% static 'media/default-img.gif' %}" alt="" />
+            <img src="{% static 'media/default-img.gif' %}" alt="{{ featured_post.title }}" />
         {% endif %}
     </span>
 </section>
