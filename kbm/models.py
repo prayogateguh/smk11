@@ -44,9 +44,17 @@ class Mapel(models.Model):
     def get_kelas(self):
         return ", ".join([kl.name for kl in self.kelas.all()])
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Mapel, self).save(*args, **kwargs)
+
 class NilaiMapel(models.Model):
     date = models.DateTimeField(auto_now_add=True)
-    angka = models.IntegerField()
+    pengetahuan = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    keterampilan = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+
+    smt = [('smt1', 'SEMESTER 1'), ('smt2', 'SEMESTER 2')]
+    semester = models.CharField(max_length=10, choices=smt, default='SEMESTER 1')
     mapel = models.OneToOneField(Mapel, related_name='mapel_nilai')
     siswa = models.OneToOneField(User, on_delete=models.CASCADE, related_name='siswa_nilai')
 
@@ -55,4 +63,4 @@ class NilaiMapel(models.Model):
         verbose_name_plural = 'Nilai'
 
     def kelas(self):
-        return self.siswa.kelas
+        return self.siswa.siswa.kelas

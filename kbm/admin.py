@@ -6,6 +6,7 @@ from akun.models import Siswa
 @admin.register(Mapel)
 class MapelAdmin(admin.ModelAdmin):
     list_display = ('name', 'get_kelas', 'hari',)
+    fields = ('name', 'kelas', 'hari',)
 
 @admin.register(Kelas)
 class KelasAdmin(admin.ModelAdmin):
@@ -15,10 +16,6 @@ class KelasAdmin(admin.ModelAdmin):
     
     #prepopulated_fields = {'slug': ('id',), }
 
-@admin.register(Siswa)
-class SiswaAdmin(admin.ModelAdmin):
-    list_display = ('nama_lengkap', 'kelas', 'user')
-
 @admin.register(NilaiMapel)
 class NilaiMapelAdmin(admin.ModelAdmin):
-	list_display = ('angka', 'siswa', 'mapel', 'kelas',)
+	list_display = ('siswa', 'kelas', 'mapel', 'pengetahuan', 'keterampilan', )
