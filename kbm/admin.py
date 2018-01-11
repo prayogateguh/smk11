@@ -19,4 +19,10 @@ class KelasAdmin(admin.ModelAdmin):
 
 @admin.register(NilaiMapel)
 class NilaiMapelAdmin(admin.ModelAdmin):
-    list_display = ('siswa', 'kelas', 'mapel', 'pengetahuan', 'keterampilan', )
+    list_display = (
+        'get_siswa',
+        'kelas',
+        'mapel',
+        'pengetahuan',
+        'keterampilan',
+    )

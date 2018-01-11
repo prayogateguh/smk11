@@ -53,18 +53,29 @@ class Mapel(models.Model):
 class NilaiMapel(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     pengetahuan = models.DecimalField(
-        max_digits=4, decimal_places=2, default=0.0)
+        max_digits=4,
+        decimal_places=2,
+        default=0.0,
+        null=True)
     keterampilan = models.DecimalField(
         max_digits=4,
         decimal_places=2,
-        default=0.0)
+        default=0.0,
+        null=True)
 
     smt = [('smt1', 'SEMESTER 1'), ('smt2', 'SEMESTER 2')]
     semester = models.CharField(
         max_length=10, choices=smt, default='SEMESTER 1')
     mapel = models.OneToOneField(Mapel, related_name='mapel_nilai')
-    siswa = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name='siswa_nilai')
+    siswa = models.ForeignKey(
+        User, on_delete=models.CASCADE)
+
+    def get_siswa(self):
+        if self.siswa.first_name and self.siswa.last_name:
+            nama = self.siswa.first_name + ' ' + self.siswa.last_name
+        else:
+            nama = self.siswa.username
+        return nama
 
     class Meta:
         verbose_name = 'Nilai'
@@ -72,3 +83,6 @@ class NilaiMapel(models.Model):
 
     def kelas(self):
         return self.siswa.siswa.kelas
+
+    def __str__(self):
+        return self.mapel.name

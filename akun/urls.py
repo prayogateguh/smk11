@@ -6,4 +6,5 @@ urlpatterns = [
     # akun dashboard
     url(r'^dashboard/$', views.dashboard, name='dashboard'),
     url(r'^profile/$', views.update_profile, name='profile'),
+    url(r'^siswa/$', views.siswa_detail, name='siswa_detail'),
 ]

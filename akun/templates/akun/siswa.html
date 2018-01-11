@@ -1,0 +1,17 @@
+{% extends "html5up/base.html" %}
+
+{% block content %}
+<p>Hello {{ siswa.user }}, this is your profile</p>
+<ul>
+    <li>Kelas: {{ siswa.kelas }}</li>
+    {% for mpl in siswa.mapel.all %}
+        <li>Mapel: {{ mpl.name }} 
+            ({{ mpl.mapel_nilai.pengetahuan }}, {{ mpl.mapel_nilai.keterampilan }})
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
+
+{% block post-sidebar %}{% endblock post-sidebar %}
+{% block address %}{% endblock address %}

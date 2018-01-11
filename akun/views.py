@@ -1,9 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import ProfileForm, UserForm, SiswaForm
+from .forms import ProfileForm, SiswaForm, UserForm
+from .models import Siswa
 
 
 @login_required
@@ -47,3 +48,14 @@ def update_profile(request):
             'status_form': status_form,
             'sts': sts,
             })
+
+
+@login_required
+def siswa_detail(request):
+    siswa = get_object_or_404(Siswa, pk=request.user.siswa.id,)
+
+    return render(
+        request,
+        'akun/siswa.html',
+        {'siswa': siswa, }
+    )
