@@ -16,11 +16,12 @@ class Kelas(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('kbm:kelas_detail', args=[self.slug,])
+        return reverse('kbm:kelas_detail', args=[self.slug, ])
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Kelas, self).save(*args, **kwargs)
+
 
 class Mapel(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -48,15 +49,22 @@ class Mapel(models.Model):
         self.slug = slugify(self.name)
         super(Mapel, self).save(*args, **kwargs)
 
+
 class NilaiMapel(models.Model):
     date = models.DateTimeField(auto_now_add=True)
-    pengetahuan = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
-    keterampilan = models.DecimalField(max_digits=4, decimal_places=2, default=0.0)
+    pengetahuan = models.DecimalField(
+        max_digits=4, decimal_places=2, default=0.0)
+    keterampilan = models.DecimalField(
+        max_digits=4,
+        decimal_places=2,
+        default=0.0)
 
     smt = [('smt1', 'SEMESTER 1'), ('smt2', 'SEMESTER 2')]
-    semester = models.CharField(max_length=10, choices=smt, default='SEMESTER 1')
+    semester = models.CharField(
+        max_length=10, choices=smt, default='SEMESTER 1')
     mapel = models.OneToOneField(Mapel, related_name='mapel_nilai')
-    siswa = models.OneToOneField(User, on_delete=models.CASCADE, related_name='siswa_nilai')
+    siswa = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='siswa_nilai')
 
     class Meta:
         verbose_name = 'Nilai'

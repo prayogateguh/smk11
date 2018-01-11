@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^edit/(?P<pk>[-\w]+)/$', views.edit_post, name='edit_post'),
     # view post
     url(r'^(?P<post>[-\w]+)/$', views.post_detail, name='post_detail'),
-    url(r'^tag/(?P<tag_slug>[-\w]+)/$', views.post_list, name='post_list_by_tag'),
-    
+    url(r'^tag/(?P<tag_slug>[-\w]+)/$',
+        views.post_list, name='post_list_by_tag'),
+
 ]

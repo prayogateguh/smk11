@@ -22,7 +22,6 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import TemplateView
-from django.contrib.auth.views import login
 
 from berita.sitemaps import PostSitemap
 
@@ -34,14 +33,23 @@ urlpatterns = [
     # site authentication urls
     url(r'^accounts/', include('django.contrib.auth.urls')),
     # posts sitemaps
-    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^sitemap\.xml$',
+        sitemap, {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'),
     # static pages
-    url(r'^about/$', TemplateView.as_view(template_name='static/about_us.html'), name='about'),
-    url(r'^contact/$', TemplateView.as_view(template_name='static/contact_us.html'), name='contact'),
+    url(r'^about/$',
+        TemplateView.as_view(template_name='static/about_us.html'),
+        name='about'),
+    url(r'^contact/$',
+        TemplateView.as_view(template_name='static/contact_us.html'),
+        name='contact'),
     # template tests
-    url(r'^test-home/$', TemplateView.as_view(template_name='html5up/base.html')),
-    url(r'^test-single/$', TemplateView.as_view(template_name='html5up/single.html')),
-    url(r'^test-login/$', TemplateView.as_view(template_name='html5up/login.html')),
+    url(r'^test-home/$',
+        TemplateView.as_view(template_name='html5up/base.html')),
+    url(r'^test-single/$',
+        TemplateView.as_view(template_name='html5up/single.html')),
+    url(r'^test-login/$',
+        TemplateView.as_view(template_name='html5up/login.html')),
     # akun apps
     url(r'', include('akun.urls', namespace='akun', app_name='akun')),
     # kbm apps
@@ -49,5 +57,6 @@ urlpatterns = [
     # berita apps
     url(r'', include('berita.urls', namespace='berita', app_name='berita')),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 # ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

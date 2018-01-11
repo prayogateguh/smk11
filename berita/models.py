@@ -8,11 +8,15 @@ from taggit.managers import TaggableManager
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
-        return super(PublishedManager, self).get_queryset().filter(status='published')
+        return super(
+            PublishedManager, self).get_queryset().filter(status='published')
+
 
 class DraftedManager(models.Manager):
     def get_queryset(self):
-        return super(DraftedManager, self).get_queryset().filter(status='draft')
+        return super(
+            DraftedManager, self).get_queryset().filter(status='draft')
+
 
 class Post(models.Model):
     STATUS_CHOICES = (
@@ -20,18 +24,20 @@ class Post(models.Model):
         ('published', 'Published'),
     )
     title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=250, unique_for_date='publish', unique=True)
+    slug = models.SlugField(
+        max_length=250, unique_for_date='publish', unique=True)
     author = models.ForeignKey(User, related_name='news_posts')
-    post_pic = models.ImageField(upload_to = 'img/', null=True, blank=True)
+    post_pic = models.ImageField(upload_to='img/', null=True, blank=True)
     embed = models.CharField(max_length=255, null=True, blank=True)
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    status = models.CharField(
+        max_length=10, choices=STATUS_CHOICES, default='draft')
     featured = models.BooleanField(default=False)
-    objects = models.Manager() # the default manager
-    published = PublishedManager() # the custom manager
+    objects = models.Manager()  # the default manager
+    published = PublishedManager()  # the custom manager
     drafted = DraftedManager()
     tags = TaggableManager()
 
@@ -43,13 +49,14 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('berita:post_detail', args=[self.slug,])
+        return reverse('berita:post_detail', args=[self.slug, ])
 
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
         if not self.slug:
-            self.slug = str(self.id) + "-" + slugify(self.title) 
+            self.slug = str(self.id) + "-" + slugify(self.title)
             self.save()
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments')

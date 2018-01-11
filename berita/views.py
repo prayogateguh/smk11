@@ -1,17 +1,17 @@
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.core.urlresolvers import reverse
 from django.db.models import Count
-from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from taggit.models import Tag
 
 from .forms import CommentForm, PostForm
-from .models import Comment, Post
+from .models import Post
 
 
 def index(request):
     return render(request, 'html5up/base.html', {})
+
 
 def post_detail(request, post):
     posts = Post.published.all()
@@ -35,17 +35,20 @@ def post_detail(request, post):
 
     # related post based on its tags
     post_tags_ids = post.tags.values_list('id', flat=True)
-    similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
-    similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4]
+    similar_posts = Post.published.filter(
+        tags__in=post_tags_ids).exclude(id=post.id)
+    similar_posts = similar_posts.annotate(
+        same_tags=Count('tags')).order_by('-same_tags', '-publish')[:4]
 
     return render(request, 'news/post/detail.html', {
         'posts': posts,
-        'post': post, 
-        'comments': comments, 
-        'comment_form': comment_form, 
-        'new_comment': new_comment, 
+        'post': post,
+        'comments': comments,
+        'comment_form': comment_form,
+        'new_comment': new_comment,
         'similar_posts': similar_posts,
     })
+
 
 def post_list(request, tag_slug=None):
     posts_list = Post.published.all()
@@ -53,7 +56,7 @@ def post_list(request, tag_slug=None):
 
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(posts_list, 6) # hanya menampilkan 6 post per halaman
+    paginator = Paginator(posts_list, 6)  # hanya menampilkan 6 post halaman
     try:
         posts = paginator.page(page)
     except PageNotAnInteger:
@@ -68,10 +71,11 @@ def post_list(request, tag_slug=None):
         posts = posts.filter(tags__in=[tag])
 
     return render(request, 'news/post/list.html', {
-        'posts': posts, 
-        'featured_post': featured_post, 
+        'posts': posts,
+        'featured_post': featured_post,
         'tag': tag,
     })
+
 
 @permission_required('berita.can_post_news')
 def add_post(request):
@@ -85,7 +89,8 @@ def add_post(request):
         return HttpResponseRedirect('/berita/')
     else:
         posting = PostForm()
-        return render(request, 'news/post/add.html', {'posting': posting,})
+        return render(request, 'news/post/add.html', {'posting': posting, })
+
 
 @permission_required('berita.can_post_news')
 def del_post(request, pk):
@@ -95,14 +100,19 @@ def del_post(request, pk):
         post.delete()
         return redirect('berita:all_posts')
 
-    return render(request, 'news/post/del_post.html', {'post': post,})
+    return render(request, 'news/post/del_post.html', {'post': post, })
+
 
 @permission_required('berita.can_post_news')
 def all_posts(request):
     posts = Post.published.all()
     drafts = Post.drafted.all()
 
-    return render(request, 'news/post/all_posts.html', {'posts': posts, 'drafts': drafts,})
+    return render(
+        request,
+        'news/post/all_posts.html',
+        {'posts': posts, 'drafts': drafts, })
+
 
 @permission_required('berita.can_post_news')
 def edit_post(request, pk):
@@ -118,4 +128,7 @@ def edit_post(request, pk):
         # Save was successful, so redirect to another page
         return redirect('berita:all_posts')
 
-    return render(request, 'news/post/edit.html', {'form': form, 'title': title,})
+    return render(
+        request,
+        'news/post/edit.html',
+        {'form': form, 'title': title, })

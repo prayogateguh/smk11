@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.db import transaction
 from django.shortcuts import render, redirect
 
@@ -10,6 +9,7 @@ from .forms import ProfileForm, UserForm, SiswaForm
 @login_required
 def dashboard(request):
     return render(request, 'akun/dashboard.html', {})
+
 
 @login_required
 @transaction.atomic
@@ -40,10 +40,10 @@ def update_profile(request):
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
         status_form = SiswaForm(instance=request.user)
-    
+
     return render(request, 'akun/profile.html', {
-            'user_form': user_form, 
-            'profile_form': profile_form, 
+            'user_form': user_form,
+            'profile_form': profile_form,
             'status_form': status_form,
             'sts': sts,
             })
