@@ -1,8 +1,22 @@
 {% extends "html5up/base.html" %}
 
 {% block content %}
-    <p>Detail kelas {{ kelas.name }}</p>
+    <p>Kelas {{ kelas.name }}</p>
     <p>Guru: {{ guru.user.get_full_name }}</p>
+
+    <h4>Daftar Mapel:</h4>
+    <div class="table-wrapper">
+        <table class="alt">
+            <tbody>
+                <tr>
+                    <td>Mengajar Kelas</td>
+                    {% for mpl in guru.ngajar_mapel.all %}
+                    <td><a href="{% url 'kbm:mapel_detail' slug=mpl.slug %}">{{ mpl.name }}</a></td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
 {% endblock content %}
 
 {% block post-sidebar %}{% endblock post-sidebar %}

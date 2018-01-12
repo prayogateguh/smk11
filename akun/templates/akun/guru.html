@@ -1,9 +1,22 @@
 {% extends "html5up/base.html" %}
 
 {% block content %}
-<p>Hello {{ guru.user }}, this is your profile</p>
+<hr>
 <ul>
-
+    <h4>Info Akademik</h4>
+    <div class="table-wrapper">
+        <table class="alt">
+            <tbody>
+                <tr>
+                    <td>Mengajar Kelas</td>
+                    {% for kls in guru.ngajar_kelas.all %}
+                    <td><a href="{% url 'kbm:kelas_detail' slug=kls.slug %}">{{ kls.name }}</a></td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<hr>
     <h4>Profile Guru</h4>
     <div class="table-wrapper">
         <table class="alt">
@@ -47,22 +60,6 @@
             </tbody>
         </table>
     </div>
-
-    <h4>Info Akademik</h4>
-    <div class="table-wrapper">
-        <table class="alt">
-            <tbody>
-                <tr>
-                    <td>Mengajar Kelas</td>
-                    {% for kls in guru.ngajar_kelas.all %}
-                    <td><a href="{% url 'kbm:kelas_detail' slug=kls.slug %}">{{ kls.name }}</a></td>
-                    {% endfor %}
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-
 </ul>
 
 {% endblock content %}

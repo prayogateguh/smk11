@@ -33,5 +33,17 @@ def semua_mapel(request):
 @login_required
 def mapel_detail(request, slug):
     mapel = get_object_or_404(Mapel, slug=slug,)
+    guru = mapel.ngajar_mapel.get(user=request.user)
+    kelas = mapel.kelas.get()
+    siswa = kelas.kelas_siswa.all()
 
-    return render(request, 'kbm/mapel_detail.html', {'mapel': mapel, })
+    return render(
+        request,
+        'kbm/mapel_detail.html',
+        {
+            'mapel': mapel,
+            'guru': guru,
+            'kelas': kelas,
+            'siswa': siswa,
+        },
+    )

@@ -1,7 +1,41 @@
 {% extends "html5up/base.html" %}
 
 {% block content %}
-    <p>Detail mapel {{ mapel.name }}</p>
+    <p>Mapel {{ mapel.name }}</p>
+    <p>Guru: {{ guru.user.get_full_name }}</p>
+
+    <h4>Daftar Siswa</h4>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Siswa</th>
+                    <th>Keterampilan</th>
+                    <th>Pengetahuan</th>
+                </tr>
+            </thead>
+            <tbody>
+                    
+                {% for sis in siswa %}
+                <tr>
+                    <td>{{ sis.user.get_full_name }}</td>
+                    
+                    {% for nil in sis.user.siswa_nilai.all %}
+                    
+                    {% if nil.mapel|stringformat:"s" == mapel.name|stringformat:"s" %}
+                    <td>{{ nil.keterampilan }}</td>
+                    <td>{{ nil.pengetahuan }}</td>
+                    {% endif %}
+                        
+                    
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}
 
 {% block post-sidebar %}{% endblock post-sidebar %}

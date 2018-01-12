@@ -84,7 +84,7 @@ class NilaiMapel(models.Model):
     smt = [('smt1', 'SEMESTER 1'), ('smt2', 'SEMESTER 2')]
     semester = models.CharField(
         max_length=10, choices=smt, default='SEMESTER 1')
-    mapel = models.OneToOneField(Mapel, related_name='mapel_nilai')
+    mapel = models.ForeignKey(Mapel, related_name='mapel_nilai')
     siswa = models.ForeignKey(
         User, related_name='siswa_nilai')
 

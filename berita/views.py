@@ -86,7 +86,7 @@ def add_post(request):
             obj.author = request.user
             obj.save()
             posting.save_m2m()
-        return HttpResponseRedirect('/berita/')
+        return HttpResponseRedirect('/all-posts/')
     else:
         posting = PostForm()
         return render(request, 'news/post/add.html', {'posting': posting, })
