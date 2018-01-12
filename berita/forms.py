@@ -9,6 +9,9 @@ class CommentForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
+
+    # featured = forms.BooleanField(initial=True, required=False)
+
     class Meta:
         model = Post
         fields = [

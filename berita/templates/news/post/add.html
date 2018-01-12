@@ -6,7 +6,19 @@
 {% block content %}
 <h2>Add post</h2>
 <form action="" method="post" enctype="multipart/form-data">
-    {{ posting.as_p }}
+    
+    {% for field in posting %}
+        {% if field.label|lower|stringformat:"s" == "featured" %}
+            <div class="6u$ 12u$(small)">
+                {{ field }}
+                <label for="id_featured">Featured</label>
+            </div>
+        {% else %}
+            {{ field.label }}
+            <p>{{ field }}</p>
+        {% endif %}
+    {% endfor %}
+    
     {% csrf_token %}
     <input type="submit" value="Tambah" />
 </form>
