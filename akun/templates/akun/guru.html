@@ -1,0 +1,17 @@
+{% extends "html5up/base.html" %}
+
+{% block content %}
+<p>Hello {{ guru.user }}, this is your profile</p>
+<ul>
+    {% for kls in guru.ngajar_kelas.all %}
+        <li>Kelas: {{ kls.name }}</li>
+    {% endfor %}
+    {% for mpl in guru.ngajar_mapel.all %}
+        <li>Mapel: <a href="{% url 'kbm:mapel_detail' slug=mpl.slug %}">{{ mpl.name }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
+
+{% block post-sidebar %}{% endblock post-sidebar %}
+{% block address %}{% endblock address %}

@@ -18,9 +18,19 @@ class Kelas(models.Model):
     def get_absolute_url(self):
         return reverse('kbm:kelas_detail', args=[self.slug, ])
 
+    def _get_unique_slug(self):
+        slug = slugify(self.name)
+        unique_slug = slug
+        num = 1
+        while Kelas.objects.filter(slug=unique_slug).exists():
+            unique_slug = '{}-{}'.format(slug, num)
+            num += 1
+        return unique_slug
+
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Kelas, self).save(*args, **kwargs)
+        if not self.slug:
+            self.slug = self._get_unique_slug()
+        super().save()
 
 
 class Mapel(models.Model):
@@ -43,9 +53,19 @@ class Mapel(models.Model):
     def get_kelas(self):
         return ", ".join([kl.name for kl in self.kelas.all()])
 
+    def _get_unique_slug(self):
+        slug = slugify(self.name)
+        unique_slug = slug
+        num = 1
+        while Mapel.objects.filter(slug=unique_slug).exists():
+            unique_slug = '{}-{}'.format(slug, num)
+            num += 1
+        return unique_slug
+
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Mapel, self).save(*args, **kwargs)
+        if not self.slug:
+            self.slug = self._get_unique_slug()
+        super().save()
 
 
 class NilaiMapel(models.Model):
@@ -66,7 +86,7 @@ class NilaiMapel(models.Model):
         max_length=10, choices=smt, default='SEMESTER 1')
     mapel = models.OneToOneField(Mapel, related_name='mapel_nilai')
     siswa = models.ForeignKey(
-        User, on_delete=models.CASCADE)
+        User, related_name='siswa_nilai')
 
     def get_siswa(self):
         if self.siswa.first_name and self.siswa.last_name:

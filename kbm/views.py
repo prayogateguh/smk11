@@ -32,8 +32,8 @@ def semua_mapel(request):
 
 
 @login_required
-def mapel_detail(request, pk):
-    mapel = get_object_or_404(Mapel, slug=pk,)
+def mapel_detail(request, slug):
+    mapel = get_object_or_404(Mapel, slug=slug,)
 
     return render(request, 'kbm/mapel_detail.html', {'mapel': mapel, })
 

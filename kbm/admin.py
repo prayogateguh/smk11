@@ -4,8 +4,8 @@ from .models import Kelas, Mapel, NilaiMapel
 
 @admin.register(Mapel)
 class MapelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'get_kelas', 'hari',)
-    fields = ('name', 'kelas', 'hari',)
+    list_display = ('name', 'get_kelas', 'hari', 'slug', )
+    fields = ('name', 'kelas', 'hari')
 
 
 @admin.register(Kelas)

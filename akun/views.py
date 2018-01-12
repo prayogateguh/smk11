@@ -4,7 +4,7 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import ProfileForm, SiswaForm, UserForm
-from .models import Siswa
+from .models import Siswa, Guru
 
 
 @login_required
@@ -58,4 +58,15 @@ def siswa_detail(request):
         request,
         'akun/siswa.html',
         {'siswa': siswa, }
+    )
+
+
+@login_required
+def guru_detail(request):
+    guru = get_object_or_404(Guru, pk=request.user.guru.id,)
+
+    return render(
+        request,
+        'akun/guru.html',
+        {'guru': guru, }
     )
