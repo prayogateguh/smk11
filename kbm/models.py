@@ -28,6 +28,7 @@ class Mapel(models.Model):
     kelas = models.ManyToManyField(Kelas, related_name='mapel_kelas')
     slug = models.SlugField(unique=True)
     hari = models.CharField(max_length=50,)
+    tahun_ajaran = models.CharField(max_length=4,)
 
     class Meta:
         verbose_name = 'Mapel'
@@ -38,9 +39,6 @@ class Mapel(models.Model):
 
     def get_absolute_url(self):
         return reverse('kbm:mapel_detail', args=[self.slug])
-
-    # def get_hari(self):
-    #     return ", ".join([ha.name for ha in self.hari.all()])
 
     def get_kelas(self):
         return ", ".join([kl.name for kl in self.kelas.all()])

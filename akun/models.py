@@ -52,3 +52,26 @@ class Siswa(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.user)
         super(Siswa, self).save(*args, **kwargs)
+
+
+class Guru(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    ngajar_kelas = models.ManyToManyField(Kelas, related_name='ngajar_kelas')
+    ngajar_mapel = models.ManyToManyField(Mapel, related_name='ngajar_mapel')
+    slug = models.SlugField()
+
+    class Meta:
+        verbose_name_plural = 'Guru'
+
+    def __str__(self):
+        return self.user.username
+
+    def get_absolute_url(self):
+        return reverse('akun:guru_detail', args=[self.slug])
+
+    def nama_lengkap(self):
+        return "{} {}".format(self.user.first_name, self.user.last_name)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.user)
+        super(Guru, self).save(*args, **kwargs)
