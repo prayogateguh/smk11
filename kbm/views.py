@@ -14,13 +14,12 @@ def semua_kelas(request):
 @login_required
 def kelas_detail(request, slug):
     kelas = get_object_or_404(Kelas, slug=slug,)
-    mapel = kelas.mapel_kelas.all()
-    siswa = kelas.kelas_siswa.all()
+    guru = kelas.ngajar_kelas.get(user=request.user)
 
     return render(
         request,
         'kbm/kelas_detail.html',
-        {'kelas': kelas, 'siswa': siswa, 'mapel': mapel, }
+        {'kelas': kelas, 'guru': guru, }
     )
 
 
@@ -36,20 +35,3 @@ def mapel_detail(request, slug):
     mapel = get_object_or_404(Mapel, slug=slug,)
 
     return render(request, 'kbm/mapel_detail.html', {'mapel': mapel, })
-
-# @login_required
-# def semua_siswa(request):
-#     siswa = Siswa.objects.all()
-
-#     return render(request, 'kbm/siswa.html', {'siswa': siswa,})
-
-# @login_required
-# def siswa_detail(request, pk):
-#     siswa = get_object_or_404(Siswa, slug=pk,)
-#     nilai = siswa.siswa_nilai.all()
-
-#     return render(
-#       request,
-#       'kbm/siswa_detail.html',
-#       {'siswa':siswa, 'nilai':nilai,}
-#     )

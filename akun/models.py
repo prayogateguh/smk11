@@ -10,9 +10,9 @@ from kbm.models import Kelas, Mapel
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True, null=True)
-    location = models.CharField(max_length=30, blank=True, null=True)
-    birth_date = models.DateField(blank=True, null=True)
+    biodata = models.TextField(max_length=500, blank=True, null=True)
+    alamat = models.CharField(max_length=150, blank=True, null=True)
+    tanggal_lahir = models.DateField(blank=True, null=True)
     status = models.TextField(max_length=10, default='Siswa')
 
 

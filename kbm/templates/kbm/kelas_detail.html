@@ -1,52 +1,9 @@
-{% extends "base_generic.html" %}
+{% extends "html5up/base.html" %}
 
 {% block content %}
     <p>Detail kelas {{ kelas.name }}</p>
-    {% for sis in siswa %}
-        <p><a href="{{ sis.get_absolute_url }}">{{ sis.user }}</a></p>
-    {% endfor %}
+    <p>Guru: {{ guru.user.get_full_name }}</p>
+{% endblock content %}
 
-    <h2>Daftar Mapel</h2>
-    <p>Senin</p>
-    {% for m in mapel %}
-        {% if "Senin" in m.hari %}
-            <p><a href="{{ m.get_absolute_url }}">{{ m.name }}</a></p>
-        {% endif %}
-    {% endfor %}
-
-    <p>Selasa</p>
-    {% for m in mapel %}
-        {% if "Selasa" in m.hari %}
-            <p><a href="{{ m.get_absolute_url }}">{{ m.name }}</a></p>
-        {% endif %}
-    {% endfor %}
-
-    <p>Rabu</p>
-    {% for m in mapel %}
-        {% if "Rabu" in m.hari %}
-            <p><a href="{{ m.get_absolute_url }}">{{ m.name }}</a></p>
-        {% endif %}
-    {% endfor %}
-
-    <p>Kamis</p>
-    {% for m in mapel %}
-        {% if "Kamis" in m.hari %}
-            <p><a href="{{ m.get_absolute_url }}">{{ m.name }}</a></p>
-        {% endif %}
-    {% endfor %}
-
-    <p>Jumát</p>
-    {% for m in mapel %}
-        {% if "Jumat" in m.hari %}
-            <p><a href="{{ m.get_absolute_url }}">{{ m.name }}</a></p>
-        {% endif %}
-    {% endfor %}
-
-    <p>Sabtu</p>
-    {% for m in mapel %}
-        {% if "Sabtu" in m.hari %}
-            <p><a href="{{ m.get_absolute_url }}">{{ m.name }}</a></p>
-        {% endif %}
-    {% endfor %}
-
-{% endblock %}
+{% block post-sidebar %}{% endblock post-sidebar %}
+{% block address %}{% endblock address %}

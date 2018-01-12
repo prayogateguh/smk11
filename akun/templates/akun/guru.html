@@ -9,6 +9,51 @@
     {% for mpl in guru.ngajar_mapel.all %}
         <li>Mapel: <a href="{% url 'kbm:mapel_detail' slug=mpl.slug %}">{{ mpl.name }}</a></li>
     {% endfor %}
+
+    <h4>Profile Guru</h4>
+    <div class="table-wrapper">
+        <table class="alt">
+            <tbody>
+                <tr>
+                    <td>Nama Lengkap</td>
+                    <td>{{ guru.user.get_full_name }}</td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>{{ guru.user.profile.status }}</td>
+                </tr>
+                <tr>
+                    <td>Tanggal Lahir</td>
+                    <td>{{ guru.user.profile.tanggal_lahir }}</td>
+                </tr>
+                <tr>
+                    <td>Bio</td>
+                    <td>{{ guru.user.profile.biodata }}</td>
+                </tr>
+                <tr>
+                    <td>Alamat</td>
+                    <td>{{ guru.user.profile.alamat }}</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+
+    <h4>Info Akademik</h4>
+    <div class="table-wrapper">
+        <table class="alt">
+            <tbody>
+                <tr>
+                    <td>Mengajar Kelas</td>
+                    {% for kls in guru.ngajar_kelas.all %}
+                    <td><a href="{% url 'kbm:kelas_detail' slug=kls.slug %}">{{ kls.name }}</a></td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
 </ul>
 
 {% endblock content %}

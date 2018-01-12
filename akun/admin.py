@@ -4,7 +4,7 @@ from .models import Profile, Siswa, Guru
 
 @admin.register(Profile)
 class MapelAdmin(admin.ModelAdmin):
-    list_display = ('user', 'status', 'bio', 'birth_date', 'location')
+    list_display = ('user', 'status', 'biodata', 'tanggal_lahir', 'alamat')
 
 
 @admin.register(Siswa)

@@ -13,7 +13,7 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('bio', 'birth_date', 'location',)
+        fields = ('biodata', 'tanggal_lahir', 'alamat',)
 
 
 class SiswaForm(forms.ModelForm):
