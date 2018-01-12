@@ -14,6 +14,9 @@ class Profile(models.Model):
     alamat = models.CharField(max_length=150, blank=True, null=True)
     tanggal_lahir = models.DateField(blank=True, null=True)
     status = models.TextField(max_length=10, default='Siswa')
+    no_hp = models.CharField(max_length=15, default='-')
+    nama_ayah = models.CharField(max_length=50, default='-')
+    nama_ibu = models.CharField(max_length=50, default='-')
 
 
 @receiver(post_save, sender=User)

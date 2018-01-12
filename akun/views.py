@@ -4,7 +4,7 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import ProfileForm, SiswaForm, UserForm
-from .models import Siswa, Guru
+from .models import Guru, Siswa
 
 
 @login_required

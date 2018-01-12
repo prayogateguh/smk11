@@ -7,11 +7,6 @@
     {% csrf_token %}
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
-
-    {% if sts == "Siswa" %}
-    Kelas: {{ request.user.siswa.kelas }} <br>
-    Mapel:  <br>
-    {% endif %}
     <button type="submit">Save changes</button>
 </form>
 
