@@ -2,7 +2,7 @@
     color: #ff0000;
 }
 
-.tengah {
+.tengah, iframe {
     display: block;
     margin: 0 auto;
 }

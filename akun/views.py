@@ -53,11 +53,11 @@ def update_profile(request):
 @login_required
 def siswa_detail(request):
     siswa = get_object_or_404(Siswa, pk=request.user.siswa.id,)
-
+    semester = range(1, siswa.semester + 1)
     return render(
         request,
         'akun/siswa.html',
-        {'siswa': siswa, }
+        {'siswa': siswa, 'semester': semester, }
     )
 
 

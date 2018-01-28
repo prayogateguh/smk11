@@ -81,7 +81,14 @@ class NilaiMapel(models.Model):
         default=0.0,
         null=True)
 
-    smt = [('smt1', 'SEMESTER 1'), ('smt2', 'SEMESTER 2')]
+    smt = [
+        ('1', 'SEMESTER 1'),
+        ('2', 'SEMESTER 2'),
+        ('3', 'SEMESTER 3'),
+        ('4', 'SEMESTER 4'),
+        ('5', 'SEMESTER 5'),
+        ('6', 'SEMESTER 6'),
+    ]
     semester = models.CharField(
         max_length=10, choices=smt, default='SEMESTER 1')
     mapel = models.ForeignKey(Mapel, related_name='mapel_nilai')

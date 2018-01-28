@@ -38,6 +38,7 @@ class Siswa(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     kelas = models.ForeignKey(Kelas, related_name='kelas_siswa')
     mapel = models.ManyToManyField(Mapel, related_name='mapel_siswa')
+    semester = models.IntegerField(default=1)
     slug = models.SlugField(max_length=40, unique=True)
 
     class Meta:

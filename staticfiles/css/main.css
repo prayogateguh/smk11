@@ -2925,6 +2925,7 @@
 
 			table.alt tbody tr:first-child td {
 				border-top-width: 1px;
+				width: 80%;
 			}
 
 			table.alt thead {

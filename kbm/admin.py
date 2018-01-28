@@ -25,4 +25,5 @@ class NilaiMapelAdmin(admin.ModelAdmin):
         'mapel',
         'pengetahuan',
         'keterampilan',
+        'semester',
     )

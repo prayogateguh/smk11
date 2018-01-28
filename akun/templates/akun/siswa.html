@@ -2,14 +2,69 @@
 
 {% block content %}
 <p>Hello {{ siswa.user }}, this is your profile</p>
-<ul>
-    <li>Kelas: {{ siswa.kelas }}</li>
-    {% for mpl in siswa.user.siswa_nilai.all %}
-        <li>Mapel: {{ mpl.mapel.name }} 
-            ({{ mpl.keterampilan }}, {{ mpl.pengetahuan }})
-        </li>
-    {% endfor %}
-</ul>
+
+<h4>Profile Siswa</h4>
+<div class="table-wrapper">
+    <table class="alt">
+        <tbody>
+            <tr>
+                <td>Nama Lengkap</td>
+                <td>{{ siswa.user.get_full_name }}</td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>{{ siswa.user.profile.status }}</td>
+            </tr>
+            <tr>
+                <td>Tanggal Lahir</td>
+                <td>{{ siswa.user.profile.tanggal_lahir }}</td>
+            </tr>
+            <tr>
+                <td>Bio</td>
+                <td>{{ siswa.user.profile.biodata }}</td>
+            </tr>
+            <tr>
+                <td>Alamat</td>
+                <td>{{ siswa.user.profile.alamat }}</td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td>{{ siswa.user.email }}</td>
+            </tr>
+            <tr>
+                <td>No. HP</td>
+                <td>{{ siswa.user.profile.no_hp }}</td>
+            </tr>
+            <tr>
+                <td>Nama Ayah</td>
+                <td>{{ siswa.user.profile.nama_ayah }}</td>
+            </tr>
+            <tr>
+                <td>Nama Ibu</td>
+                <td>{{ siswa.user.profile.nama_ibu }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h4>Info Akademik</h4>
+{% for smt in semester %}
+<div class="table-wrapper">
+<table class="alt">
+<tbody>
+<li>Semester {{ smt }}</li>
+{% for mpl in siswa.user.siswa_nilai.all %}
+{% if mpl.semester == smt|stringformat:"s" %}
+<tr>
+    <td>{{ mpl.mapel.name }}</td>
+    <td>{{ mpl.pengetahuan }} - {{ mpl.keterampilan }}</td>
+</tr>
+{% endif %}
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% endfor %}
 
 {% endblock content %}
 

@@ -9,8 +9,8 @@ class MapelAdmin(admin.ModelAdmin):
 
 @admin.register(Siswa)
 class SiswaAdmin(admin.ModelAdmin):
-    list_display = ('user', 'kelas', 'slug',)
-    fields = ('user', 'kelas', 'mapel',)
+    list_display = ('user', 'kelas', 'slug', 'semester',)
+    fields = ('user', 'kelas', 'mapel', 'semester',)
 
 
 @admin.register(Guru)
