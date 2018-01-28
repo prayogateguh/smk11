@@ -4,9 +4,9 @@
 <p>Hello {{ siswa.user }}, this is your profile</p>
 <ul>
     <li>Kelas: {{ siswa.kelas }}</li>
-    {% for mpl in siswa.mapel.all %}
-        <li>Mapel: {{ mpl.name }} 
-            ({{ mpl.mapel_nilai.pengetahuan }}, {{ mpl.mapel_nilai.keterampilan }})
+    {% for mpl in siswa.user.siswa_nilai.all %}
+        <li>Mapel: {{ mpl.mapel.name }} 
+            ({{ mpl.keterampilan }}, {{ mpl.pengetahuan }})
         </li>
     {% endfor %}
 </ul>
