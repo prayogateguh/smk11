@@ -6,15 +6,30 @@
     </header>
     <ul>
         <li><a href="{% url 'berita:homepage' %}">Home</a></li>
-        <li><a href="generic.html">Profile</a></li>
-        <li><a href="elements.html">Akademik</a></li>
-        <li><a href="elements.html">Contact</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+        {% if "Guru" in request.user.profile.status|stringformat:"s" %}
+            <li><a href="{% url 'akun:guru_detail' %}">Akademik</a></li>
+        {% endif %}
+        {% if "Siswa" in request.user.profile.status|stringformat:"s" %}
+            <li><a href="{% url 'akun:siswa_detail' %}">Akademik</a></li>
+        {% endif %}
+        {% if "Staff" in request.user.profile.status|stringformat:"s" %}
+            <li>
+                <span class="opener">Posts</span>
+                <ul>
+                    <li><a href="{% url 'berita:add_post' %}">Add post</a></li>
+                    <li><a href="{% url 'berita:all_posts' %}">All post</a></li>
+                </ul>
+            </li>
+        {% endif %}
+        
         {% block menu %}
         <li>
             <span class="opener">Account</span>
             <ul>
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'akun:dashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'akun:profile' %}">Edit profile</a></li>
                 <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
                 {% else %}
                 <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li> 

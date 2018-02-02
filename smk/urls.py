@@ -43,13 +43,6 @@ urlpatterns = [
     url(r'^contact/$',
         TemplateView.as_view(template_name='static/contact_us.html'),
         name='contact'),
-    # template tests
-    url(r'^test-home/$',
-        TemplateView.as_view(template_name='html5up/base.html')),
-    url(r'^test-single/$',
-        TemplateView.as_view(template_name='html5up/single.html')),
-    url(r'^test-login/$',
-        TemplateView.as_view(template_name='html5up/login.html')),
     # akun apps
     url(r'', include('akun.urls', namespace='akun', app_name='akun')),
     # kbm apps

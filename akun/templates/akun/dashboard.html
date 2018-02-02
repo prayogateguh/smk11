@@ -9,11 +9,6 @@
     {% endif %}
 
     <hr>
-    {% if request.user.profile.status|stringformat:"s" == "Guru" %}
-        <li><a href="{% url 'akun:guru_detail' %}">Akademik</a></li>
-    {% elif request.user.profile.status|stringformat:"s" == "Siswa" %}
-        <li><a href="{% url 'akun:siswa_detail' %}">Akademik</a></li>
-    {% endif %}
     <li><a href="{% url 'akun:profile' %}">Edit profile</a></li>
     <hr>
     <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>   

@@ -8,11 +8,6 @@ from .models import Guru, Siswa
 
 
 @login_required
-def dashboard(request):
-    return render(request, 'akun/dashboard.html', {})
-
-
-@login_required
 @transaction.atomic
 def update_profile(request):
 
