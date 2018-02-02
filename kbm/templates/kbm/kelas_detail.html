@@ -7,13 +7,19 @@
     <h4>Daftar Mapel:</h4>
     <div class="table-wrapper">
         <table class="alt">
-            <tbody>
+            <thead>
                 <tr>
-                    <td>Mengajar Kelas</td>
-                    {% for mpl in guru.ngajar_mapel.all %}
-                    <td><a href="{% url 'kbm:mapel_detail' slug=mpl.slug %}">{{ mpl.name }}</a></td>
-                    {% endfor %}
+                    <th>Nama</th>
+                    <th>Description</th>
                 </tr>
+            </thead>
+            <tbody>
+                {% for mpl in mapel %}
+                <tr>
+                    <td>{{ mpl.name }}</td>
+                    <td><a href="{% url 'kbm:mapel_detail' slug=mpl.slug %}">Rincian</a></td>  
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

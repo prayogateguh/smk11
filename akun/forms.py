@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from .models import Profile, Siswa
+from .models import Profile
 
 
 class UserForm(forms.ModelForm):
@@ -21,9 +21,3 @@ class ProfileForm(forms.ModelForm):
             'nama_ayah',
             'nama_ibu',
         )
-
-
-class SiswaForm(forms.ModelForm):
-    class Meta:
-        model = Siswa
-        fields = ('kelas', 'mapel',)

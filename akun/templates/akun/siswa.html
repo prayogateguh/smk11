@@ -52,11 +52,11 @@
 <div class="table-wrapper">
 <table class="alt">
 <tbody>
-<li>Semester {{ smt }}</li>
+<h5>Semester {{ smt }}</h5>
 {% for mpl in siswa.user.siswa_nilai.all %}
 {% if mpl.semester == smt|stringformat:"s" %}
 <tr>
-    <td>{{ mpl.mapel.name }}</td>
+    <td>{{ mpl.mapel.name }} - {{ mpl.ngajar_mapel.user }}</td>
     <td>{{ mpl.pengetahuan }} - {{ mpl.keterampilan }}</td>
 </tr>
 {% endif %}

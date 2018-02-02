@@ -1,12 +1,14 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.template.defaultfilters import slugify
+# from django.db.models.signals import m2m_changed
+# from django.dispatch import receiver
 
 
 class Kelas(models.Model):
-    name = models.CharField(max_length=10)
-    slug = models.SlugField()
+    name = models.CharField(max_length=25)
+    tahun_ajaran = models.CharField(max_length=9, default="2017/2018")
+    slug = models.SlugField(max_length=255, unique=True)
 
     class Meta:
         verbose_name = 'Kelas'
@@ -18,27 +20,22 @@ class Kelas(models.Model):
     def get_absolute_url(self):
         return reverse('kbm:kelas_detail', args=[self.slug, ])
 
-    def _get_unique_slug(self):
-        slug = slugify(self.name)
-        unique_slug = slug
-        num = 1
-        while Kelas.objects.filter(slug=unique_slug).exists():
-            unique_slug = '{}-{}'.format(slug, num)
-            num += 1
-        return unique_slug
-
     def save(self, *args, **kwargs):
+        super(Kelas, self).save(*args, **kwargs)
         if not self.slug:
-            self.slug = self._get_unique_slug()
-        super().save()
+            self.slug = str(self.id)
+            self.save()
+        if self.tahun_ajaran not in self.name:
+            # add tahun ke nama
+            self.name += " - " + self.tahun_ajaran
+            self.save()
 
 
 class Mapel(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    kelas = models.ManyToManyField(Kelas, related_name='mapel_kelas')
-    slug = models.SlugField(unique=True)
+    name = models.CharField(max_length=50)
+    kelas = models.ForeignKey(Kelas, related_name='mapel_kelas')
     hari = models.CharField(max_length=50,)
-    tahun_ajaran = models.CharField(max_length=4,)
+    slug = models.SlugField(max_length=255, unique=True)
 
     class Meta:
         verbose_name = 'Mapel'
@@ -50,22 +47,16 @@ class Mapel(models.Model):
     def get_absolute_url(self):
         return reverse('kbm:mapel_detail', args=[self.slug])
 
-    def get_kelas(self):
-        return ", ".join([kl.name for kl in self.kelas.all()])
-
-    def _get_unique_slug(self):
-        slug = slugify(self.name)
-        unique_slug = slug
-        num = 1
-        while Mapel.objects.filter(slug=unique_slug).exists():
-            unique_slug = '{}-{}'.format(slug, num)
-            num += 1
-        return unique_slug
-
     def save(self, *args, **kwargs):
+        # save it to get the id
+        super(Mapel, self).save(*args, **kwargs)
+        # setting the slug and add by id
         if not self.slug:
-            self.slug = self._get_unique_slug()
-        super().save()
+            self.slug = str(self.id)
+            self.save()
+        if str(self.kelas) not in self.name:
+            self.name += " - " + str(self.kelas)
+            self.save()
 
 
 class NilaiMapel(models.Model):
@@ -84,10 +75,6 @@ class NilaiMapel(models.Model):
     smt = [
         ('1', 'SEMESTER 1'),
         ('2', 'SEMESTER 2'),
-        ('3', 'SEMESTER 3'),
-        ('4', 'SEMESTER 4'),
-        ('5', 'SEMESTER 5'),
-        ('6', 'SEMESTER 6'),
     ]
     semester = models.CharField(
         max_length=10, choices=smt, default='SEMESTER 1')
@@ -95,19 +82,9 @@ class NilaiMapel(models.Model):
     siswa = models.ForeignKey(
         User, related_name='siswa_nilai')
 
-    def get_siswa(self):
-        if self.siswa.first_name and self.siswa.last_name:
-            nama = self.siswa.first_name + ' ' + self.siswa.last_name
-        else:
-            nama = self.siswa.username
-        return nama
-
     class Meta:
         verbose_name = 'Nilai'
         verbose_name_plural = 'Nilai'
-
-    def kelas(self):
-        return self.siswa.siswa.kelas
 
     def __str__(self):
         return self.mapel.name

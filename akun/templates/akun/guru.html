@@ -6,13 +6,19 @@
     <h4>Info Akademik</h4>
     <div class="table-wrapper">
         <table class="alt">
-            <tbody>
+            <thead>
                 <tr>
-                    <td>Mengajar Kelas</td>
-                    {% for kls in guru.ngajar_kelas.all %}
-                    <td><a href="{% url 'kbm:kelas_detail' slug=kls.slug %}">{{ kls.name }}</a></td>
-                    {% endfor %}
+                    <th>Mengajar Kelas</th>
+                    <th>Description</th>
                 </tr>
+            </thead>
+            <tbody>
+                {% for kls in guru.ngajar_kelas.all %}
+                <tr>
+                    <td>{{ kls.name }}</td>
+                    <td><a href="{% url 'kbm:kelas_detail' slug=kls.slug %}">Rincian</a></td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

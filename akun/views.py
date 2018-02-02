@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import ProfileForm, SiswaForm, UserForm
+from .forms import ProfileForm, UserForm
 from .models import Guru, Siswa
 
 
@@ -22,14 +22,6 @@ def update_profile(request):
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
 
-        if sts == 'Siswa':
-            status_form = SiswaForm(request.POST, instance=request.user)
-        elif sts == 'Guru':
-            pass
-        elif sts == 'Staff':
-            pass
-        else:
-            pass
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -40,12 +32,10 @@ def update_profile(request):
     else:
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
-        status_form = SiswaForm(instance=request.user)
 
     return render(request, 'akun/profile.html', {
             'user_form': user_form,
             'profile_form': profile_form,
-            'status_form': status_form,
             'sts': sts,
             })
 

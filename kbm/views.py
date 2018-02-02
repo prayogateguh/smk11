@@ -12,18 +12,6 @@ def semua_kelas(request):
 
 
 @login_required
-def kelas_detail(request, slug):
-    kelas = get_object_or_404(Kelas, slug=slug,)
-    guru = kelas.ngajar_kelas.get(user=request.user)
-
-    return render(
-        request,
-        'kbm/kelas_detail.html',
-        {'kelas': kelas, 'guru': guru, }
-    )
-
-
-@login_required
 def semua_mapel(request):
     mapel = Mapel.objects.all()
 
@@ -31,11 +19,29 @@ def semua_mapel(request):
 
 
 @login_required
+def kelas_detail(request, slug):
+    kelas = get_object_or_404(Kelas, slug=slug,)
+    guru = kelas.ngajar_kelas.get(user=request.user)
+    mapel = guru.ngajar_mapel.filter(kelas=kelas,)
+
+    return render(
+        request,
+        'kbm/kelas_detail.html',
+        {
+            'kelas': kelas,
+            'guru': guru,
+            'mapel': mapel,
+        }
+    )
+
+
+@login_required
 def mapel_detail(request, slug):
     mapel = get_object_or_404(Mapel, slug=slug,)
     guru = mapel.ngajar_mapel.get(user=request.user)
-    kelas = mapel.kelas.get()
-    siswa = kelas.kelas_siswa.all()
+    _nil_smt_1 = mapel.mapel_nilai.filter(semester="1")
+    _nil_smt_2 = mapel.mapel_nilai.filter(semester="2")
+    nilai_semester = [_nil_smt_1, _nil_smt_2]
 
     return render(
         request,
@@ -43,7 +49,6 @@ def mapel_detail(request, slug):
         {
             'mapel': mapel,
             'guru': guru,
-            'kelas': kelas,
-            'siswa': siswa,
+            'nilai_semester': nilai_semester,
         },
     )

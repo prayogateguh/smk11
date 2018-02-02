@@ -2,28 +2,22 @@ from django.contrib import admin
 from .models import Kelas, Mapel, NilaiMapel
 
 
-@admin.register(Mapel)
-class MapelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'get_kelas', 'hari', 'slug', )
-    fields = ('name', 'kelas', 'hari')
-
-
 @admin.register(Kelas)
 class KelasAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug',)
-    fields = ('name',)
-    ordering = ('-name',)
-
-    # prepopulated_fields = {'slug': ('id',), }
+    list_display = ('name', 'tahun_ajaran', 'slug',)
+    fields = ('name', 'tahun_ajaran',)
+    ordering = ('tahun_ajaran', '-name',)
 
 
-@admin.register(NilaiMapel)
-class NilaiMapelAdmin(admin.ModelAdmin):
-    list_display = (
-        'get_siswa',
-        'kelas',
-        'mapel',
-        'pengetahuan',
-        'keterampilan',
-        'semester',
-    )
+class NilaiInline(admin.TabularInline):
+    fields = ('siswa', 'semester', 'pengetahuan', 'keterampilan',)
+    model = NilaiMapel
+    extra = 0
+
+
+@admin.register(Mapel)
+class MapelAdmin(admin.ModelAdmin):
+    list_display = ('name', 'kelas', 'hari', 'slug',)
+    fields = ('name', 'kelas', 'hari',)
+
+    inlines = [NilaiInline, ]
