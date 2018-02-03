@@ -1,3 +1,6 @@
 /akun/__pycache__
 /akun/migrations
 *.pyc
+/.vscode
+/akun/templatetags/__pycache__
+/berita/templatetags/__pycache__

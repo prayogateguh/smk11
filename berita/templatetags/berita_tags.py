@@ -10,7 +10,7 @@ register = template.Library()
 @register.inclusion_tag('news/post/latest_posts.html')
 def show_latest_posts(count=5):
     latest_posts = Post.published.order_by('-publish')[:count]
-    return {'latest_posts': latest_posts,}
+    return {'latest_posts': latest_posts, }
 
 @register.assignment_tag
 def get_most_commented_posts(count=5):

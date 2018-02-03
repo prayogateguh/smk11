@@ -34,39 +34,6 @@ def save_user_profile(sender, instance, **kwargs):
 User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
 
 
-class Siswa(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    kelas = models.ForeignKey(Kelas, related_name='kelas_siswa')
-    mapel = models.ManyToManyField(Mapel, related_name='mapel_siswa')
-    slug = models.SlugField(max_length=40, unique=True)
-
-    class Meta:
-        verbose_name_plural = 'Siswa'
-
-    def __str__(self):
-        return self.user.username
-
-    def get_absolute_url(self):
-        return reverse('akun:siswa_detail', args=[self.slug])
-
-    def nama_lengkap(self):
-        return "{} {}".format(self.user.first_name, self.user.last_name)
-
-    def _get_unique_slug(self):
-        slug = slugify(self.user)
-        unique_slug = slug
-        num = 1
-        while Siswa.objects.filter(slug=unique_slug).exists():
-            unique_slug = '{}-{}'.format(slug, num)
-            num += 1
-        return unique_slug
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = self._get_unique_slug()
-        super().save()
-
-
 class Guru(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     ngajar_kelas = models.ManyToManyField(Kelas, related_name='ngajar_kelas')
@@ -85,16 +52,33 @@ class Guru(models.Model):
     def nama_lengkap(self):
         return "{} {}".format(self.user.first_name, self.user.last_name)
 
-    def _get_unique_slug(self):
-        slug = slugify(self.user)
-        unique_slug = slug
-        num = 1
-        while Guru.objects.filter(slug=unique_slug).exists():
-            unique_slug = '{}-{}'.format(slug, num)
-            num += 1
-        return unique_slug
+    def save(self, *args, **kwargs):
+        super(Guru, self).save(*args, **kwargs)
+        if not self.slug:
+            self.slug = str(self.id)
+            self.save()
+
+
+class Siswa(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    kelas = models.ForeignKey(Kelas, related_name='kelas_siswa')
+    mapel = models.ManyToManyField(Mapel, related_name='mapel_siswa')
+    slug = models.SlugField(max_length=40, unique=True)
+
+    class Meta:
+        verbose_name_plural = 'Siswa'
+
+    def __str__(self):
+        return self.user.username
+
+    def get_absolute_url(self):
+        return reverse('akun:siswa_detail', args=[self.slug])
+
+    def nama_lengkap(self):
+        return "{} {}".format(self.user.first_name, self.user.last_name)
 
     def save(self, *args, **kwargs):
+        super(Siswa, self).save(*args, **kwargs)
         if not self.slug:
-            self.slug = self._get_unique_slug()
-        super().save()
+            self.slug = str(self.id)
+            self.save()

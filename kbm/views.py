@@ -5,21 +5,7 @@ from .models import Kelas, Mapel
 
 
 @login_required
-def semua_kelas(request):
-    kelas = Kelas.objects.all()
-
-    return render(request, 'kbm/kelas.html', {'kelas': kelas, })
-
-
-@login_required
-def semua_mapel(request):
-    mapel = Mapel.objects.all()
-
-    return render(request, 'kbm/mapel.html', {'mapel': mapel, })
-
-
-@login_required
-def kelas_detail(request, slug):
+def guru_kelas_detail(request, slug):
     kelas = get_object_or_404(Kelas, slug=slug,)
     guru = kelas.ngajar_kelas.get(user=request.user)
     mapel = guru.ngajar_mapel.filter(kelas=kelas,)
@@ -36,7 +22,7 @@ def kelas_detail(request, slug):
 
 
 @login_required
-def mapel_detail(request, slug):
+def guru_mapel_detail(request, slug):
     mapel = get_object_or_404(Mapel, slug=slug,)
     guru = mapel.ngajar_mapel.get(user=request.user)
     _nil_smt_1 = mapel.mapel_nilai.filter(semester="1")

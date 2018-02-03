@@ -1,0 +1,50 @@
+{% extends "html5up/base.html" %}
+{% load akun_tags %}
+
+{% block content %}
+<hr>
+<ul>
+    {% for nil_kelas in nilai %}  
+    <h4>Kelas {{ forloop.counter }}</h4>
+        {% for nilai_mapel in nil_kelas %}
+        {% if nilai_mapel %}
+        <div class="table-wrapper">
+                <table class="alt">
+                    <thead>
+                        <tr>
+                            <th>Semester {{ forloop.counter }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        {% for nilai in nilai_mapel %}
+                    {% for nilai_ in nilai %}
+                    <tr>
+                        {% with nilai_.mapel.name|split:"-" as names %}
+                        <td>{{ names.0 }} 
+                            ( {{ nilai_.pengetahuan }} - {{ nilai_.keterampilan }} )
+                        </td>
+                        {% endwith %}
+                    </tr>
+                    {% endfor %}
+        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if forloop.last %}
+        <hr>                   
+        {% endif %}
+        
+        {% else %}
+            {% if forloop.first %}
+            <p>Data masih kosong</p>                      
+            {% endif %}
+        {% endif %}
+        {% endfor %}
+    {% endfor %}
+    <hr>
+</ul>
+{% endblock content %}
+
+{% block post-sidebar %}{% endblock post-sidebar %}
+{% block address %}{% endblock address %}

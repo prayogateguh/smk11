@@ -36,17 +36,6 @@ def update_profile(request):
 
 
 @login_required
-def siswa_detail(request):
-    siswa = get_object_or_404(Siswa, pk=request.user.siswa.id,)
-    semester = range(1, siswa.semester + 1)
-    return render(
-        request,
-        'akun/siswa.html',
-        {'siswa': siswa, 'semester': semester, }
-    )
-
-
-@login_required
 def guru_detail(request):
     guru = get_object_or_404(Guru, pk=request.user.guru.id,)
 
@@ -54,4 +43,56 @@ def guru_detail(request):
         request,
         'akun/guru.html',
         {'guru': guru, }
+    )
+
+
+@login_required
+def siswa_profile(request):
+    siswa = get_object_or_404(Siswa, pk=request.user.siswa.id,)
+    return render(
+            request,
+            'akun/siswa_profile.html',
+            {
+                'siswa': siswa,
+            }
+        )
+
+
+@login_required
+def siswa_nilai(request):
+    siswa = get_object_or_404(Siswa, pk=request.user.siswa.id,)
+    mapel = siswa.mapel.all()
+
+    s1 = []
+    s2 = []
+    for mpl in mapel:
+        s1.append(mpl.mapel_nilai.filter(semester="1"))
+        s2.append(mpl.mapel_nilai.filter(semester="2"))
+
+    # n.mapel.kelas
+    _1 = [[o for o in n if str(o.mapel.kelas).startswith("X ")] for n in s1]
+    a1 = [x for x in _1 if x]
+    _2 = [[o for o in n if str(o.mapel.kelas).startswith("X ")] for n in s2]
+    a2 = [x for x in _2 if x]
+    x = [a1, a2]  # nilai kelas X
+    _1 = [[o for o in n if str(o.mapel.kelas).startswith("XI ")] for n in s1]
+    b1 = [x for x in _1 if x]
+    _2 = [[o for o in n if str(o.mapel.kelas).startswith("XI ")] for n in s2]
+    b2 = [x for x in _2 if x]
+    xi = [b1, b2]  # nilai kelas XI
+    _1 = [[o for o in n if str(o.mapel.kelas).startswith("XII ")] for n in s1]
+    c1 = [x for x in _1 if x]
+    _2 = [[o for o in n if str(o.mapel.kelas).startswith("XII ")] for n in s2]
+    c2 = [x for x in _2 if x]
+    xii = [c1, c2]  # nilai kelas XII
+    nilai = [x, xi, xii]
+
+    return render(
+        request,
+        'akun/siswa_nilai.html',
+        {
+            'siswa': siswa,
+            'mapel': mapel,
+            'nilai': nilai,
+        }
     )

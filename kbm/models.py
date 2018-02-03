@@ -30,7 +30,7 @@ class Kelas(models.Model):
 
 
 class Mapel(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
     kelas = models.ForeignKey(Kelas, related_name='mapel_kelas')
     hari = models.CharField(max_length=50,)
     slug = models.SlugField(max_length=255, unique=True)

@@ -12,7 +12,7 @@
             <li><a href="{% url 'akun:guru_detail' %}">Akademik</a></li>
         {% endif %}
         {% if "Siswa" in request.user.profile.status|stringformat:"s" %}
-            <li><a href="{% url 'akun:siswa_detail' %}">Akademik</a></li>
+            <li><a href="{% url 'akun:siswa_nilai' %}">Akademik</a></li>
         {% endif %}
         {% if "Staff" in request.user.profile.status|stringformat:"s" %}
             <li>
@@ -29,6 +29,7 @@
             <span class="opener">Account</span>
             <ul>
                 {% if user.is_authenticated %}
+                <li><a href="{% url 'akun:siswa_profile' %}">Your profile</a></li>
                 <li><a href="{% url 'akun:profile' %}">Edit profile</a></li>
                 <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
                 {% else %}
