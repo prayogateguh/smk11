@@ -1,5 +1,8 @@
 {% extends "html5up/base.html" %}
 
+
+{% block title %}Nilai {{ mapel.name }} - SMK IA{% endblock title %}
+
 {% block content %}
     <h3>Mapel {{ mapel.name }}</h3>
     <h5>Guru: {{ guru.user.get_full_name }} </h5>

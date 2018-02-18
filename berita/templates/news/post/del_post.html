@@ -1,5 +1,8 @@
 {% extends "html5up/base.html" %}
 
+
+{% block title %}Delete {{ post.title }} - SMK IA{% endblock title %}
+
 {% block content %}
 <form action="" method="post">{% csrf_token %}
     <p>Are you sure you want to delete "{{ post.title }}"?</p>

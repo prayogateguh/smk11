@@ -1,5 +1,8 @@
 {% extends "html5up/base.html" %}
 
+
+{% block title %}Detail Kelas - SMK IA{% endblock title %}
+
 {% block content %}
     <p>Kelas {{ kelas.name }}</p>
     <p>Guru: {{ guru.user.get_full_name }}</p>

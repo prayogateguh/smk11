@@ -29,7 +29,9 @@
             <span class="opener">Account</span>
             <ul>
                 {% if user.is_authenticated %}
+                {% if "Siswa" in request.user.profile.status|stringformat:"s" %}
                 <li><a href="{% url 'akun:siswa_profile' %}">Your profile</a></li>
+                {% endif %}
                 <li><a href="{% url 'akun:profile' %}">Edit profile</a></li>
                 <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
                 {% else %}

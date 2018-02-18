@@ -1,5 +1,7 @@
 {% extends "html5up/base.html" %}
 
+{% block title %}Edit Profile - SMK IA{% endblock title %}
+
 {% block content %}
 <p>Hello {{ user.get_full_name }}, this is your profile</p>
 {% for message in messages %}

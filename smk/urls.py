@@ -51,5 +51,3 @@ urlpatterns = [
     url(r'', include('berita.urls', namespace='berita', app_name='berita')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-# ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
